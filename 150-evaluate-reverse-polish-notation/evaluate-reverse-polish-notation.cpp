@@ -25,7 +25,6 @@ public:
                 int x = stoi(i);
                 st.push(x);
             }
-            cout << st.top() << " ";
         }
         return st.top();
     }
