@@ -30,7 +30,7 @@ public:
             long long cnt = 0;
             long long l = (i-pse);
             long long r = nse[i] - i;
-            cnt = ((l+r-1)+(r-1)*(l-1))*arr[i];
+            cnt = (r*l)*arr[i];
             sum = (sum + cnt)%mod;
         }
         return sum;
