@@ -23,8 +23,6 @@ public:
     }
 
     int maxPathSum(TreeNode* root) {
-        if(!root->left && !root->right)
-            return root->val;
         int ans = INT_MIN;
         solve(root,ans);
         return ans;
