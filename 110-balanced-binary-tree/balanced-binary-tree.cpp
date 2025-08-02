@@ -17,7 +17,7 @@ public:
         return max(findHeight(root->left),findHeight(root->right))+1;
     }
 
-    bool check(TreeNode* root){
+    bool isBalanced(TreeNode* root) {
         if(root == NULL)
             return true;
         int l_height = findHeight(root->left);
@@ -28,10 +28,6 @@ public:
         if(bf < -1 || bf > 1)
             return false;
         return isBalanced(root->left) && isBalanced(root->right);
-    }
-
-    bool isBalanced(TreeNode* root) {
-        return check(root);
             
     }
 };
