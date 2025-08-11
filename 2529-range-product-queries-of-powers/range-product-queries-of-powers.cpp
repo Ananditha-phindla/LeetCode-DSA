@@ -1,7 +1,6 @@
 class Solution {
 public:
     void fillPowers(int n, vector<int>&powers){
-        bitset<32>binary_representation(n);
         int i=0;
         while(n > 0){
             if(n & 1){
