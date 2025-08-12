@@ -1,8 +1,12 @@
 class Solution {
 public:
     int divide(long dividend, long divisor) {
-        if((dividend == INT_MIN || dividend == INT_MAX) && divisor == 1)
-            return dividend;
+        if((dividend == INT_MIN || dividend == INT_MAX) && (divisor == 1 || divisor == -1)){
+            if((dividend < 0 == divisor < 0))
+                return INT_MAX;
+            else
+                return -dividend;
+        }
         if(dividend == divisor)
             return 1;
         bool isPositive = (dividend < 0 == divisor < 0);
