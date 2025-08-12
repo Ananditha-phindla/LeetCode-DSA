@@ -91,13 +91,10 @@ public:
             if(size == mp.size()){
                 mp.erase(dummy->next->key);
                 Node *n = dummy->next;
-                 int curr_freq = n->freq;
-                int prev_freq = n->prev->freq;
+                int curr_freq = n->freq;
+                //int prev_freq = n->prev->freq;
                 if(n == freq_mp[curr_freq]){
-                    if(curr_freq == prev_freq)
-                        freq_mp[curr_freq] = n->prev;
-                    else
-                        freq_mp.erase(curr_freq);
+                    freq_mp.erase(curr_freq);
                 }
                 deleteNode(dummy->next);
             }
