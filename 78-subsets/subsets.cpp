@@ -5,9 +5,8 @@ public:
             ans.push_back(curr);
             return;
         }
-        curr.push_back(nums[i]);
         solve(n,curr,i+1,ans,nums);
-        curr.pop_back();
+        curr.push_back(nums[i]);
         solve(n,curr,i+1,ans,nums);
     }
 
