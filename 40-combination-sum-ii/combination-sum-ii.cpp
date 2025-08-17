@@ -4,9 +4,9 @@ public:
         if(target < 0)
             return;
         if(target == 0){
-                ans.push_back(curr);
-                return;
-            }
+            ans.push_back(curr);
+            return;
+        }
         
         for(int j=i;j<candidates.size();j++){
             if(i == j || candidates[j] != candidates[j-1]){
