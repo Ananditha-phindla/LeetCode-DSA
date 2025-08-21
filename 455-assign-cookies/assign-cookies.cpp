@@ -18,6 +18,6 @@ public:
                 p2++;
             }
         }
-        return ans;
+        return p1;
     }
 };
