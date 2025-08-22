@@ -9,7 +9,7 @@ public:
             return dp[idx];
         for(int i=nums[idx];i>0;i--){
             if(solve(nums,idx+i,dp))
-                return dp[i] = true;
+                return dp[idx+i] = true;
         }
         return dp[idx] = false;
     }
