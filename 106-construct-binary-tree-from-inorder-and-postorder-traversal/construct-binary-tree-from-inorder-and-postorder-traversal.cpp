@@ -11,23 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* solve(vector<int>& inorder, vector<int>& postorder, unordered_map<int,int>& inorderMp, int lo, int hi,int &idx){
+    TreeNode* solve(vector<int>& post, unordered_map<int,int>& mp, int lo, int hi, int &idx){
         if(lo > hi)
             return NULL;
-        TreeNode* nn = new TreeNode(postorder[idx]);
-        int l = inorderMp[postorder[idx]];
+        TreeNode* root = new TreeNode(post[idx]);
         idx--;
-        nn->right = solve(inorder,postorder,inorderMp,l+1,hi,idx);
-        nn->left = solve(inorder,postorder,inorderMp,lo,l-1,idx);
-        return nn;
+        root->right = solve(post,mp,mp[root->val]+1,hi,idx);
+        root->left = solve(post,mp,lo,mp[root->val]-1,idx);
+        return root;
     }
 
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        unordered_map<int,int> inorderMp;
         int n = inorder.size();
+        unordered_map<int,int>mp;
+        for(int i=0;i<n;i++){
+            mp[inorder[i]] = i;
+        }
         int idx = n-1;
-        for(int i=0;i<n;i++)
-            inorderMp[inorder[i]] = i;
-        return solve(inorder,postorder,inorderMp,0,n-1,idx);
+        return solve(postorder,mp,0,n-1,idx);
     }
 };
