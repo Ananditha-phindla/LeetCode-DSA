@@ -25,27 +25,26 @@ public:
                     ans -= 10;
             }
             else if(s[i] == 'L'){
-                if(i == n-1 || s[i+1] == 'I' || s[i+1] == 'V' || s[i+1] == 'X' || s[i+1] == 'L' )
+                if(i == n-1 || (s[i+1] != 'C' && s[i+1] != 'D' && s[i+1] != 'M'))
                     ans += 50;
                 else
                     ans -= 50;
                 
             }
             else if(s[i] == 'C'){
-                if(i == n-1 || s[i+1] == 'I' || s[i+1] == 'V' || s[i+1] == 'X' || s[i+1] == 'L' || s[i+1] == 'C')
+                if(i == n-1 || (s[i+1] != 'D' && s[i+1] != 'M'))
                     ans += 100;
                 else
                     ans -= 100;
             }
             else if(s[i] == 'D'){
-                if(i == n-1 || s[i+1] == 'I' || s[i+1] == 'V' || s[i+1] == 'X' || s[i+1] == 'L' || s[i+1] == 'C' || s[i+1] == 'D')
+                if(i == n-1 || s[i+1] != 'M')
                     ans += 500;
                 else
                     ans -= 500;
             }
             else{
-                if(i == n-1 || s[i+1] == 'I' || s[i+1] == 'V' || s[i+1] == 'X' || s[i+1] == 'L' || s[i+1] == 'C' || s[i+1] == 'D' || s[i+1] == 'M')
-                    ans += 1000;
+                 ans += 1000;
             }
         }
         return ans;
