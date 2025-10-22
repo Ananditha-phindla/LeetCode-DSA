@@ -12,26 +12,27 @@ public:
         int n = nums.size();
         int totalSum = accumulate(nums.begin(),nums.end(),0);
         if(totalSum % 2)   return false;
-        vector<vector<int>> dp(n,vector<int>(totalSum/2+1,0));
+       vector<int> prev(totalSum/2+1,0);
 
-        for(int i=0;i<n;i++){
-            dp[i][0] = 1;
-        }
+        prev[0] = 1;
 
         if(nums[0] <= totalSum/2)
-            dp[0][nums[0]] = 1;
+            prev[nums[0]] = 1;
 
         for(int i=1;i<n;i++){
+            vector<int> curr(totalSum/2+1,0);
+            curr[0] = 1;
             for(int j=1;j<=totalSum/2;j++){
                 if(nums[i] <= j){
-                    dp[i][j] = dp[i-1][j-nums[i]];
+                    curr[j] = prev[j-nums[i]];
                 }
-                dp[i][j] |= dp[i-1][j];
+                curr[j] |= prev[j];
             }
+            prev = curr;
         }
 
-        return dp[n-1][totalSum/2];
-        return memoi(n-1,0,totalSum,nums,dp);
+        return prev[totalSum/2];
+        //return memoi(n-1,0,totalSum,nums,dp);
 
     }
 };
