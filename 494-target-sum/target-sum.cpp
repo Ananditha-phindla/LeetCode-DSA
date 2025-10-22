@@ -15,24 +15,26 @@ public:
         int total = accumulate(nums.begin(),nums.end(),0);
         if(target < -total || target > total)
             return 0;
-        vector<vector<int>> dp(n,vector<int>(2*total+1,0));
+        vector<int> prev(2*total+1,0);
         if(nums[0] == 0)
-            dp[0][total] = 2;
+            prev[total] = 2;
         else {
-            dp[0][nums[0]+total] = 1;
-            dp[0][-nums[0]+total] = 1;
+            prev[nums[0]+total] = 1;
+            prev[-nums[0]+total] = 1;
         }
 
         for(int i=1;i<n;i++){
+            vector<int> curr(2*total+1,0);
             for(int j=0;j<=2*total;j++){
                 if(nums[i] <= j)
-                    dp[i][j] += dp[i-1][j-nums[i]];
+                    curr[j] += prev[j-nums[i]];
                 if(j + nums[i] <= 2*total)
-                    dp[i][j] +=  dp[i-1][j+nums[i]];
+                    curr[j] +=  prev[j+nums[i]];
             }
+            prev = curr;
         }
 
-        return dp[n-1][target+total];
+        return prev[target+total];
 
         //return memoi(n-1,0,target,total,nums,dp);
     }
