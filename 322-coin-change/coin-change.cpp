@@ -24,15 +24,13 @@ public:
         }
 
         for(int i=1;i<n;i++){
-            vector<int> curr(amount+1);
             for(int j=0;j<=amount;j++){
                 int take = 1e9;
                 if(j >= coins[i])
-                    take = 1 + curr[j-coins[i]];
+                    take = 1 + prev[j-coins[i]];
                 int skip = prev[j];
-                curr[j] = min(take,skip);
+                prev[j] = min(take,skip);
             }
-            prev = curr;
         }
 
         int res = prev[amount];
