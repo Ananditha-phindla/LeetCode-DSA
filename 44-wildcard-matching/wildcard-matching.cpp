@@ -25,23 +25,22 @@ public:
     bool isMatch(string s2, string s1) {
         int n1 = s1.length();
         int n2 = s2.length();
-        vector<vector<int>> dp(n1+1,vector<int>(n2+1,0));
-        dp[0][0] = 1;
+        vector<int> prev(n2+1,0);
+        prev[0] = 1;
 
         for(int i=1;i<=n1;i++){
+            vector<int> curr(n2+1,0);
             if(allStars(i-1,s1))
-                dp[i][0] = 1;
-        }
-
-        for(int i=1;i<=n1;i++){
+                curr[0] = 1;
             for(int j=1;j<=n2;j++){
                 if(s1[i-1] == s2[j-1] || s1[i-1] == '?')
-                    dp[i][j] = dp[i-1][j-1];
+                    curr[j] = prev[j-1];
                 else if(s1[i-1] == '*')
-                    dp[i][j] = dp[i][j-1] || dp[i-1][j];
+                    curr[j] = curr[j-1] || prev[j];
             }
+            prev = curr;
         }
-        return dp[n1][n2];
+        return prev[n2];
         //return solve(n1-1,n2-1,s1,s2,dp);
     }
 };
