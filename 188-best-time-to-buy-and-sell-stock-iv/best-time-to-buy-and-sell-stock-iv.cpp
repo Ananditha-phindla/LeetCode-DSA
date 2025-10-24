@@ -1,24 +1,26 @@
 class Solution {
-    int solve(int i, int buy, int k,int cap, vector<int>& prices, vector<vector<vector<int>>>& dp){
-        if(k == cap || i == prices.size())   return 0;
-        if(dp[i][buy][k] != -1) return dp[i][buy][k];
-
-        if(buy == 1){
-            int include = -prices[i] + solve(i+1,0,k,cap,prices,dp);
-            int skip = solve(i+1,1,k,cap,prices,dp);
-            return dp[i][buy][k] = max(include,skip);
-        }
-        int include = prices[i] + solve(i+1,1,k+1,cap,prices,dp);
-        int skip = solve(i+1,0,k,cap,prices,dp);
-        return dp[i][buy][k] = max(include,skip);
-    }
-
 public:
     int maxProfit(int k, vector<int>& prices) {
-         int n = prices.size();
-        vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(2,vector<int>(k,-1)));
+        int n = prices.size();
+        vector<int> next(2*k+1,0);
 
-        
-        return solve(0,1,0,k,prices,dp);
+        for(int i=n-1;i>=0;i--){
+            vector<int> curr(2*k+1,0);
+            for(int j=2*k-1;j>=0;j--){
+                if(j % 2 == 0){
+                    int include = -prices[i] + next[j+1];
+                    int skip = next[j];
+                    curr[j] = max(include,skip);
+                }
+                else{
+                    int include = prices[i] + next[j+1];
+                    int skip = next[j];
+                    curr[j] = max(include,skip);
+                }
+            }
+            next = curr;
+        }
+
+        return next[0];
     }
 };
