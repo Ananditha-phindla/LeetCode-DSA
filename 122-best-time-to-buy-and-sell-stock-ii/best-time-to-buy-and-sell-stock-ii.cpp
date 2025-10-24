@@ -17,23 +17,20 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<int> next(2,0);
+        int nextNotBuy = 0;
+        int nextBuy = 0;
+        int currNotBuy = 0;
+        int currBuy = 0;
 
         for(int i=n-1;i>=0;i--){
-            vector<int> curr(2,0);
-            
-            int include = prices[i] + next[1];
-            int skip = next[0];
-            curr[0] = max(include,skip);
-            
-            include = -prices[i] + next[0];
-            skip = next[1];
-            curr[1] = max(include,skip);
+            currNotBuy = max(prices[i] + nextBuy,nextNotBuy);
+            currBuy = max(-prices[i] + nextNotBuy,nextBuy);
 
-            next = curr;
+            nextBuy = currBuy;
+            nextNotBuy = currNotBuy;
         }
 
-        return next[1];
+        return nextBuy;
         //return solve(0,1,prices,dp);
     }
 };
