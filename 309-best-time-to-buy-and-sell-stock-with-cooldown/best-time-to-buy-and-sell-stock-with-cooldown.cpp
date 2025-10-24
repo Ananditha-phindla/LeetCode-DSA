@@ -2,17 +2,19 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<int>> dp(n+2,vector<int>(2,0));
+        vector<int>next1 (2,0);
+        vector<int>next2 (2,0);
 
         for(int i=n-1;i>=0;i--){
-            int include = prices[i] + dp[i+2][1];
-            int skip = dp[i+1][0];
-            dp[i][0] = max(include,skip);
+            vector<int> curr(2,0);
 
-            include = -prices[i] + dp[i+1][0];
-            skip = dp[i+1][1];
-            dp[i][1] = max(include,skip);
+            curr[0] = max(prices[i] + next2[1],next1[0]);
+
+            curr[1] = max(-prices[i]+next1[0],next1[1]);
+
+            next2 = next1;
+            next1 = curr;
         }
-        return dp[0][1];
+        return next1[1];
     }
 };
