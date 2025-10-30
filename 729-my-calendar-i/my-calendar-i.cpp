@@ -1,0 +1,30 @@
+class MyCalendar {
+    map<int,int> mp;
+public:
+    MyCalendar() {
+        mp.clear();
+    }
+    
+    bool book(int startTime, int endTime) {
+        mp[startTime]++;
+        mp[endTime]--;
+
+        int sum = 0;
+        for(auto it : mp){
+            int k = it.first;
+            sum += mp[k];
+            if(sum > 1){
+                mp[startTime]--;
+                mp[endTime]++;
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(startTime,endTime);
+ */
